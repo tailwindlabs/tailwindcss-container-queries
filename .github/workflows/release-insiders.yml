@@ -38,7 +38,8 @@ jobs:
 
       - name: Resolve version
         id: vars
-        run: "sha_short=$(git rev-parse --short HEAD) >> $GITHUB_ENV"
+        run: | 
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: "Version based on commit: 0.0.0-insiders.${{ env.sha_short }}"
         run: npm version 0.0.0-insiders.${{ env.sha_short }} --force --no-git-tag-version
