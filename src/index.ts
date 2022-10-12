@@ -1,7 +1,7 @@
-const plugin = require('tailwindcss/plugin')
-const { normalize } = require('tailwindcss/lib/util/dataTypes')
+import plugin from 'tailwindcss/plugin'
+import { normalize } from 'tailwindcss/lib/util/dataTypes'
 
-const containerQueries = plugin(function ({ matchVariant, theme }) {
+export default plugin(function containerQueries({ matchVariant, theme }) {
   let values = theme('containers')
 
   /**
@@ -100,5 +100,3 @@ const containerQueries = plugin(function ({ matchVariant, theme }) {
     }
   )
 })
-
-module.exports = containerQueries
