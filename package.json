@@ -40,6 +40,6 @@
     "jest": "^29.1.2",
     "postcss": "^8.4.17",
     "prettier": "^2.7.1",
-    "tailwindcss": "^0.0.0-insiders.4338849"
+    "tailwindcss": "0.0.0-insiders.4338849"
   }
 }
