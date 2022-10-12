@@ -11,12 +11,11 @@
     "moduleResolution": "node",
     "stripInternal": true,
     "outDir": "dist",
-    "allowJs": true,
-    "types": ["./index.d.ts"]
+    "allowJs": true
   },
   "include": [
-    "src/index.ts",
-    "tests/index.ts"
+    "./src/index.ts",
+    "./tests/index.ts"
   ],
   "exclude": [
     "./tests/index.test.ts"

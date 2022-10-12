@@ -1,3 +1,4 @@
+import { expect } from '@jest/globals'
 import { html, css, run } from './run'
 
 it('container queries', () => {
