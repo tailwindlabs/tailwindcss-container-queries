@@ -1,10 +1,17 @@
 import plugin from 'tailwindcss/plugin'
 import { normalize } from 'tailwindcss/lib/util/dataTypes'
 
-export default plugin(function containerQueries({ matchVariant, theme }) {
-  let values = theme('containers')
+export = plugin(function containerQueries({ matchVariant, theme }) {
+  let values = theme('containers') ?? {}
 
-  function parseValue(value: string) {
+  function parseValue(value: string): {
+    raw: string
+    sortable: boolean
+    minX: number
+    maxX: number
+    minY: number
+    maxY: number
+  } | null {
     // _ -> space
     value = normalize(value)
 
@@ -40,7 +47,7 @@ export default plugin(function containerQueries({ matchVariant, theme }) {
 
     return {
       raw: value,
-      parsable: minX !== null || maxX !== null || minY !== null || maxY !== null,
+      sortable: minX !== null || maxX !== null || minY !== null || maxY !== null,
       minX: minXf,
       maxX: maxXf,
       minY: minYf,
@@ -61,15 +68,17 @@ export default plugin(function containerQueries({ matchVariant, theme }) {
         let a = parseValue(aVariant.value)
         let b = parseValue(bVariant.value)
 
+        if (a === null || b === null) return 0
+
         let aLabel = aVariant.modifier ?? ''
         let bLabel = bVariant.modifier ?? ''
 
         // Put "raw" values at the end
-        if (a.parsable === false && b.parsable === false) {
+        if (a.sortable === false && b.sortable === false) {
           return 0
-        } else if (a.parsable === false) {
+        } else if (a.sortable === false) {
           return 1
-        } else if (b.parsable === false) {
+        } else if (b.sortable === false) {
           return -1
         }
 
