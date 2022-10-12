@@ -2,7 +2,7 @@ import plugin from 'tailwindcss/plugin'
 import { normalize } from 'tailwindcss/lib/util/dataTypes'
 
 export = plugin(function containerQueries({ matchVariant, theme }) {
-  let values = theme('containers') ?? {}
+  let values: Record<string, string> = theme('containers') ?? {}
 
   function parseValue(value: string): {
     raw: string

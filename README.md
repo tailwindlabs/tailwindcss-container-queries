@@ -1,7 +1,6 @@
 # @tailwindcss/container-queries
 
-A plugin that provides utilities for container queries.
-
+A plugin for Tailwind CSS v3.2+ that provides utilities for container queries.
 
 ## Installation
 
@@ -28,7 +27,22 @@ module.exports = {
 
 ## Usage
 
-TODO
+```html
+<!-- Container queries without a specific container name -->
+<div>
+  <!-- Container query with a size of `lg` defined in your tailwind.config.js file -->
+  <div class="@lg:underline"></div>
+  <div class="@[(min-width:_1024px)]:underline"></div>
+  <div class="@[1024px]:underline"></div>
+</div>
+
+<!-- Container queries that apply for a defined container name -->
+<div class="container/sidebar">
+  <div class="@lg/sidebar:underline"></div>
+  <div class="@[(min-width:_1024px)]/sidebar:underline"></div>
+  <div class="@[1024px]/sidebar:underline"></div>
+</div>
+```
 
 ## Configuration
 

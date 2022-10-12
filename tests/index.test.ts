@@ -1,4 +1,4 @@
-import { html, css, run } from '~/jest/run'
+import { html, css, run } from './run'
 
 it('container queries', () => {
   let config = {

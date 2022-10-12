@@ -10,12 +10,16 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "stripInternal": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "allowJs": true,
+    "types": ["./index.d.ts"]
   },
   "include": [
-    "src/**/*.ts"
+    "src/index.ts",
+    "tests/index.ts"
   ],
   "exclude": [
-    "src/**/*.test.ts"
+    "./tests/index.test.ts"
   ]
 }
+
