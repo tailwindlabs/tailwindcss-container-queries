@@ -7,10 +7,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "files": [
-    "./src/index.d.ts",
-    "./src/index.js"
-  ],
+  "scripts": {
+    "test": "jest"
+  },
   "prettier": {
     "printWidth": 100,
     "semi": false,
@@ -28,6 +27,10 @@
       "^~/(.*)": "<rootDir>/$1"
     }
   },
+  "files": [
+    "./src/index.d.ts",
+    "./src/index.js"
+  ],
   "peerDependencies": {
     "tailwindcss": ">=3.2.0"
   },
