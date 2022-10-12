@@ -1,0 +1,19 @@
+{
+  "name": "@tailwindcss/container-queries",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "repository": "https://github.com/tailwindlabs/tailwindcss-container-queries",
+  "publishConfig": {
+    "access": "public"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "peerDependencies": {
+    "tailwindcss": ">=3.2.0"
+  }
+}
