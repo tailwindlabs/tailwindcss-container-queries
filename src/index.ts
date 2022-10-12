@@ -4,10 +4,7 @@ import { normalize } from 'tailwindcss/lib/util/dataTypes'
 export default plugin(function containerQueries({ matchVariant, theme }) {
   let values = theme('containers')
 
-  /**
-   * @param {string} value
-   */
-  function parseValue(value) {
+  function parseValue(value: string) {
     // _ -> space
     value = normalize(value)
 
@@ -64,10 +61,7 @@ export default plugin(function containerQueries({ matchVariant, theme }) {
         let a = parseValue(aVariant.value)
         let b = parseValue(bVariant.value)
 
-        /** @type {string} */
         let aLabel = aVariant.modifier ?? ''
-
-        /** @type {string} */
         let bLabel = bVariant.modifier ?? ''
 
         // Put "raw" values at the end
