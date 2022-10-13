@@ -44,6 +44,34 @@ module.exports = {
 </div>
 ```
 
+Named containers look like this:
+
+```css
+/* `container/sidebar` results in: */
+.container\/sidebar {
+  container-type: inline;
+  container-name: sidebar;
+}
+
+/* `container-inline/sidebar` results in: */
+.container-inline\/sidebar {
+  container-type: inline;
+  container-name: sidebar;
+}
+
+/* `container-block/sidebar` results in: */
+.container-block\/sidebar {
+  container-type: block;
+  container-name: sidebar;
+}
+
+/* `container-[size]/sidebar` results in: */
+.container-\[size\]\/sidebar {
+  container-type: size;
+  container-name: sidebar;
+}
+```
+
 ## Configuration
 
 You can configure which values are available for this plugin under the `containers` key in your `tailwind.config.js` file:
