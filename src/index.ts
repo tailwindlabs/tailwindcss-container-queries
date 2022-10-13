@@ -1,7 +1,7 @@
 import plugin from 'tailwindcss/plugin'
 import { normalize } from 'tailwindcss/lib/util/dataTypes'
 
-export = plugin(function containerQueries({ matchVariant, theme }) {
+export = plugin(function containerQueries({ matchUtilities, matchVariant, theme }) {
   let values: Record<string, string> = theme('containers') ?? {}
 
   function parseValue(value: string): {
@@ -55,9 +55,28 @@ export = plugin(function containerQueries({ matchVariant, theme }) {
     }
   }
 
+  matchUtilities(
+    {
+      container: (value, { modifier }) => {
+        return {
+          'container-type': value,
+          'container-name': modifier,
+        }
+      },
+    },
+    {
+      values: {
+        DEFAULT: 'inline',
+        block: 'block',
+        inline: 'inline',
+      },
+      modifiers: true,
+    }
+  )
+
   matchVariant(
     '@',
-    ({ value = '', modifier }) => {
+    (value = '', { modifier }) => {
       let parsed = parseValue(value)
 
       return parsed !== null ? `@container ${modifier ?? ''} ${parsed.raw}` : []

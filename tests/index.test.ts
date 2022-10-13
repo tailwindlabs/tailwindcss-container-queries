@@ -6,7 +6,9 @@ it('container queries', () => {
     content: [
       {
         raw: html`
-          <div>
+          <div
+            class="container container-block container-inline container/sidebar container-block/sidebar container-inline/sidebar container-[block] container-[block]/sidebar"
+          >
             <div class="@md:underline"></div>
             <div class="@md/container1:underline"></div>
             <div class="@md/container2:underline"></div>
@@ -54,6 +56,46 @@ it('container queries', () => {
 
   return run(input, config).then((result) => {
     expect(result.css).toMatchFormattedCss(css`
+      .block {
+        display: block;
+      }
+
+      .container {
+        container-type: inline;
+      }
+
+      .container-block {
+        container-type: block;
+      }
+
+      .container-inline {
+        container-type: inline;
+      }
+
+      .container\/sidebar {
+        container-type: inline;
+        container-name: sidebar;
+      }
+
+      .container-block\/sidebar {
+        container-type: block;
+        container-name: sidebar;
+      }
+
+      .container-inline\/sidebar {
+        container-type: inline;
+        container-name: sidebar;
+      }
+
+      .container-\[block\] {
+        container-type: block;
+      }
+
+      .container-\[block\]\/sidebar {
+        container-type: block;
+        container-name: sidebar;
+      }
+
       @container (min-width: 280px) and (max-width: 300px) {
         .\@\[\(min-width\:_280px\)_and_\(max-width\:_300px\)\]\:underline {
           text-decoration-line: underline;
