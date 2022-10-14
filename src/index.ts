@@ -1,4 +1,5 @@
 import plugin from 'tailwindcss/plugin'
+// @ts-expect-error
 import { normalize } from 'tailwindcss/lib/util/dataTypes'
 
 export = plugin(function containerQueries({ matchUtilities, matchVariant, theme }) {
