@@ -1,125 +1,85 @@
 import plugin from 'tailwindcss/plugin'
-// @ts-expect-error
-import { normalize } from 'tailwindcss/lib/util/dataTypes'
 
-export = plugin(function containerQueries({ matchUtilities, matchVariant, theme }) {
-  let values: Record<string, string> = theme('containers') ?? {}
+export = plugin(
+  function containerQueries({ matchUtilities, matchVariant, theme }) {
+    let values: Record<string, string> = theme('containers') ?? {}
 
-  function parseValue(value: string): {
-    raw: string
-    sortable: boolean
-    minX: number
-    maxX: number
-    minY: number
-    maxY: number
-  } | null {
-    // _ -> space
-    value = normalize(value)
+    function parseValue(value: string) {
+      let numericValue = value.match(/^(\d+\.\d+|\d+|\.\d+)\D+/)?.[1] ?? null
+      if (numericValue === null) return null
 
-    // If just a number then it's a min-width
-    let numericValue = value.match(/^(\d+\.\d+|\d+|\.\d+)\D+/)?.[1] ?? null
-    if (numericValue !== null) {
-      value = `(min-width: ${value})`
+      return parseFloat(value)
     }
 
-    // Support for shorthand syntax(es)
-    // Pending change on extractor ignoring @[min-w:stuff]
-    // value = value.replace(/^min-w:(.*)$/, '(min-width:\1)')
-    // value = value.replace(/^max-h:(.*)$/, '(max-width:\1)')
-    // value = value.replace(/^min-y:(.*)$/, '(min-height:\1)')
-    // value = value.replace(/^max-h:(.*)$/, '(max-height:\1)')
+    matchUtilities(
+      {
+        '@container': (value, { modifier }) => {
+          return {
+            'container-type': value,
+            'container-name': modifier,
+          }
+        },
+      },
+      {
+        values: {
+          DEFAULT: 'inline-size',
+          normal: 'normal',
+        },
+        modifiers: 'any',
+      }
+    )
 
-    // If it doesn't start / end with parens then it's not valid (for now)
-    if (!value.startsWith('(') || !value.endsWith(')')) {
-      return null
-    }
+    matchVariant(
+      '@',
+      (value = '', { modifier }) => {
+        let parsed = parseValue(value)
 
-    // Parse the value into {minX, minY, maxX, maxY, raw} values
-    // This will make suring simpler
-    let minX = value.match(/min-width:\s*(\d+\.\d+|\d+|\.\d+)\D+/)?.[1] ?? null
-    let maxX = value.match(/max-width:\s*(\d+\.\d+|\d+|\.\d+)\D+/)?.[1] ?? null
-    let minY = value.match(/min-height:\s*(\d+\.\d+|\d+|\.\d+)\D+/)?.[1] ?? null
-    let maxY = value.match(/max-height:\s*(\d+\.\d+|\d+|\.\d+)\D+/)?.[1] ?? null
+        return parsed !== null ? `@container ${modifier ?? ''} (min-width: ${value})` : []
+      },
+      {
+        values,
+        sort(aVariant, zVariant) {
+          let a = parseFloat(aVariant.value)
+          let z = parseFloat(zVariant.value)
 
-    let minXf = minX === null ? Number.MIN_SAFE_INTEGER : parseFloat(minX)
-    let maxXf = maxX === null ? Number.MAX_SAFE_INTEGER : parseFloat(maxX)
-    let minYf = minY === null ? Number.MIN_SAFE_INTEGER : parseFloat(minY)
-    let maxYf = maxY === null ? Number.MAX_SAFE_INTEGER : parseFloat(maxY)
+          if (a === null || z === null) return 0
 
-    return {
-      raw: value,
-      sortable: minX !== null || maxX !== null || minY !== null || maxY !== null,
-      minX: minXf,
-      maxX: maxXf,
-      minY: minYf,
-      maxY: maxYf,
-    }
+          // Sort values themselves regardless of unit
+          if (a - z !== 0) return a - z
+
+          let aLabel = aVariant.modifier ?? ''
+          let zLabel = zVariant.modifier ?? ''
+
+          // Explicitly move empty labels to the end
+          if (aLabel === '' && zLabel !== '') {
+            return 1
+          } else if (aLabel !== '' && zLabel === '') {
+            return -1
+          }
+
+          // Sort labels alphabetically in the English locale
+          // We are intentionally overriding the locale because we do not want the sort to
+          // be affected by the machine's locale (be it a developer or CI environment)
+          return aLabel.localeCompare(zLabel, 'en', { numeric: true })
+        },
+      }
+    )
+  },
+  {
+    theme: {
+      containers: {
+        xs: '20rem',
+        sm: '24rem',
+        md: '28rem',
+        lg: '32rem',
+        xl: '36rem',
+        '2xl': '42rem',
+        '3xl': '48rem',
+        '4xl': '56rem',
+        '5xl': '64rem',
+        '6xl': '72rem',
+        '7xl': '80rem',
+      },
+    },
   }
-
-  matchUtilities(
-    {
-      container: (value, { modifier }) => {
-        return {
-          'container-type': value,
-          'container-name': modifier,
-        }
-      },
-    },
-    {
-      values: {
-        DEFAULT: 'inline',
-        block: 'block',
-        inline: 'inline',
-      },
-      modifiers: 'any',
-    }
-  )
-
-  matchVariant(
-    '@',
-    (value = '', { modifier }) => {
-      let parsed = parseValue(value)
-
-      return parsed !== null ? `@container ${modifier ?? ''} ${parsed.raw}` : []
-    },
-    {
-      values,
-      sort(aVariant, bVariant) {
-        let a = parseValue(aVariant.value)
-        let b = parseValue(bVariant.value)
-
-        if (a === null || b === null) return 0
-
-        let aLabel = aVariant.modifier ?? ''
-        let bLabel = bVariant.modifier ?? ''
-
-        // Put "raw" values at the end
-        if (a.sortable === false && b.sortable === false) {
-          return 0
-        } else if (a.sortable === false) {
-          return 1
-        } else if (b.sortable === false) {
-          return -1
-        }
-
-        // Order by min width / height and max width / height
-        let order = a.minX - b.minX || a.minY - b.minY || b.maxX - a.maxX || b.maxY - a.maxY
-        if (order !== 0) {
-          return order
-        }
-
-        // Explicitly move empty labels to the end
-        if (aLabel === '' && bLabel !== '') {
-          return 1
-        } else if (aLabel !== '' && bLabel === '') {
-          return -1
-        }
-
-        // Sort labels alphabetically in the English locale
-        // We are intentionally overriding the locale because we do not want the sort to
-        // be affected by the machine's locale (be it a developer or CI environment)
-        return aLabel.localeCompare(bLabel, 'en', { numeric: true })
-      },
-    }
-  )
-})
+)

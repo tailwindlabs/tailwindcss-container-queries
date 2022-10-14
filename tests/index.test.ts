@@ -7,44 +7,38 @@ it('container queries', () => {
       {
         raw: html`
           <div
-            class="container container-block container-inline container/sidebar container-block/sidebar container-inline/sidebar container-[block] container-[block]/sidebar"
+            class="@container @container-normal @container/sidebar @container-normal/sidebar @container-[size]/sidebar"
           >
             <div class="@md:underline"></div>
             <div class="@md/container1:underline"></div>
             <div class="@md/container2:underline"></div>
             <div class="@md/container10:underline"></div>
-            <div class="@[(min-width:_768px)]:underline"></div>
-            <div class="@[(min-width:_768px)]/container1:underline"></div>
 
             <div class="@sm:underline"></div>
             <div class="@sm/container1:underline"></div>
             <div class="@sm/container2:underline"></div>
             <div class="@sm/container10:underline"></div>
-            <div class="@[(min-width:_320px)]:underline"></div>
-            <div class="@[(min-width:_320px)]/container1:underline"></div>
 
             <div class="@lg:underline"></div>
             <div class="@lg/container1:underline"></div>
             <div class="@lg/container2:underline"></div>
             <div class="@lg/container10:underline"></div>
-            <div class="@[(min-width:_1024px)]:underline"></div>
-            <div class="@[(min-width:_1024px)]/container1:underline"></div>
             <div class="@[1024px]:underline"></div>
             <div class="@[1024px]/container1:underline"></div>
             <div class="@[1024]/container1:underline"></div>
 
-            <div class="@[(min-width:_280px)_and_(max-width:_300px)]:underline"></div>
-            <div class="@[(min-width:_290px)_and_(max-width:_300px)]:underline"></div>
-            <div class="@[(min-width:_290px)_and_(max-width:_500px)]:underline"></div>
+            <div class="@[312px]:underline"></div>
+            <div class="@[200rem]:underline"></div>
+            <div class="@[123px]:underline"></div>
           </div>
         `,
       },
     ],
     theme: {
       containers: {
-        sm: '(min-width: 320px)',
-        md: '(min-width: 768px)',
-        lg: '(min-width: 1024px)',
+        sm: '320px',
+        md: '768px',
+        lg: '1024px',
       },
     },
     corePlugins: { preflight: false },
@@ -56,142 +50,195 @@ it('container queries', () => {
 
   return run(input, config).then((result) => {
     expect(result.css).toMatchFormattedCss(css`
-      .block {
-        display: block;
+      .\@container {
+        container-type: inline-size;
       }
 
-      .container {
-        container-type: inline;
+      .\@container-normal {
+        container-type: normal;
       }
 
-      .container-block {
-        container-type: block;
-      }
-
-      .container-inline {
-        container-type: inline;
-      }
-
-      .container\/sidebar {
-        container-type: inline;
+      .\@container\/sidebar {
+        container-type: inline-size;
         container-name: sidebar;
       }
 
-      .container-block\/sidebar {
-        container-type: block;
+      .\@container-normal\/sidebar {
+        container-type: normal;
         container-name: sidebar;
       }
 
-      .container-inline\/sidebar {
-        container-type: inline;
-        container-name: sidebar;
-      }
-
-      .container-\[block\] {
-        container-type: block;
-      }
-
-      .container-\[block\]\/sidebar {
-        container-type: block;
-        container-name: sidebar;
-      }
-
-      @container (min-width: 280px) and (max-width: 300px) {
-        .\@\[\(min-width\:_280px\)_and_\(max-width\:_300px\)\]\:underline {
+      @container (min-width: 123px) {
+        .\@\[123px\]\:underline {
           text-decoration-line: underline;
         }
       }
-      @container (min-width: 290px) and (max-width: 500px) {
-        .\@\[\(min-width\:_290px\)_and_\(max-width\:_500px\)\]\:underline {
+
+      @container (min-width: 200rem) {
+        .\@\[200rem\]\:underline {
           text-decoration-line: underline;
         }
       }
-      @container (min-width: 290px) and (max-width: 300px) {
-        .\@\[\(min-width\:_290px\)_and_\(max-width\:_300px\)\]\:underline {
+
+      @container (min-width: 312px) {
+        .\@\[312px\]\:underline {
           text-decoration-line: underline;
         }
       }
+
       @container container1 (min-width: 320px) {
         .\@sm\/container1\:underline {
           text-decoration-line: underline;
         }
-        .\@\[\(min-width\:_320px\)\]\/container1\:underline {
-          text-decoration-line: underline;
-        }
       }
+
       @container container2 (min-width: 320px) {
         .\@sm\/container2\:underline {
           text-decoration-line: underline;
         }
       }
+
       @container container10 (min-width: 320px) {
         .\@sm\/container10\:underline {
           text-decoration-line: underline;
         }
       }
+
       @container (min-width: 320px) {
         .\@sm\:underline {
           text-decoration-line: underline;
         }
-        .\@\[\(min-width\:_320px\)\]\:underline {
-          text-decoration-line: underline;
-        }
       }
+
       @container container1 (min-width: 768px) {
         .\@md\/container1\:underline {
           text-decoration-line: underline;
         }
-        .\@\[\(min-width\:_768px\)\]\/container1\:underline {
-          text-decoration-line: underline;
-        }
       }
+
       @container container2 (min-width: 768px) {
         .\@md\/container2\:underline {
           text-decoration-line: underline;
         }
       }
+
       @container container10 (min-width: 768px) {
         .\@md\/container10\:underline {
           text-decoration-line: underline;
         }
       }
+
       @container (min-width: 768px) {
         .\@md\:underline {
           text-decoration-line: underline;
         }
-        .\@\[\(min-width\:_768px\)\]\:underline {
-          text-decoration-line: underline;
-        }
       }
+
       @container container1 (min-width: 1024px) {
         .\@lg\/container1\:underline {
-          text-decoration-line: underline;
-        }
-        .\@\[\(min-width\:_1024px\)\]\/container1\:underline {
           text-decoration-line: underline;
         }
         .\@\[1024px\]\/container1\:underline {
           text-decoration-line: underline;
         }
       }
+
       @container container2 (min-width: 1024px) {
         .\@lg\/container2\:underline {
           text-decoration-line: underline;
         }
       }
+
       @container container10 (min-width: 1024px) {
         .\@lg\/container10\:underline {
           text-decoration-line: underline;
         }
       }
+
       @container (min-width: 1024px) {
         .\@lg\:underline {
           text-decoration-line: underline;
         }
-        .\@\[\(min-width\:_1024px\)\]\:underline {
+        .\@\[1024px\]\:underline {
           text-decoration-line: underline;
         }
-        .\@\[1024px\]\:underline {
+      }
+    `)
+  })
+})
+
+it('should be possible to use default container queries', () => {
+  let config = {
+    content: [
+      {
+        raw: html`
+          <div>
+            <div class="@md:underline"></div>
+            <div class="@lg:underline"></div>
+            <div class="@sm:underline"></div>
+            <div class="@xs:underline"></div>
+            <div class="@7xl:underline"></div>
+            <div class="@6xl:underline"></div>
+            <div class="@3xl:underline"></div>
+            <div class="@5xl:underline"></div>
+          </div>
+        `,
+      },
+    ],
+    theme: {},
+    corePlugins: { preflight: false },
+  }
+
+  let input = css`
+    @tailwind utilities;
+  `
+
+  return run(input, config).then((result) => {
+    expect(result.css).toMatchFormattedCss(css`
+      @container (min-width: 20rem) {
+        .\@xs\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (min-width: 24rem) {
+        .\@sm\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (min-width: 28rem) {
+        .\@md\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (min-width: 32rem) {
+        .\@lg\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (min-width: 48rem) {
+        .\@3xl\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (min-width: 64rem) {
+        .\@5xl\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (min-width: 72rem) {
+        .\@6xl\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (min-width: 80rem) {
+        .\@7xl\:underline {
           text-decoration-line: underline;
         }
       }
