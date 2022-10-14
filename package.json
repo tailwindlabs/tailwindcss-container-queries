@@ -13,7 +13,8 @@
     "swcify": "swc ./src/index.ts --out-dir ./dist",
     "build": "npm run swcify",
     "dev": "npm run swcify -- --watch",
-    "postbuild": "tsc --emitDeclarationOnly"
+    "postbuild": "tsc --emitDeclarationOnly",
+    "prepublishOnly": "npm run build"
   },
   "prettier": {
     "printWidth": 100,
