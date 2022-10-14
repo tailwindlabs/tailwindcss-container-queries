@@ -70,7 +70,7 @@ export = plugin(function containerQueries({ matchUtilities, matchVariant, theme 
         block: 'block',
         inline: 'inline',
       },
-      modifiers: true,
+      modifiers: 'any',
     }
   )
 
