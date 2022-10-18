@@ -29,50 +29,45 @@ module.exports = {
 
 ```html
 <!-- Container queries without a specific container name -->
-<div>
+<div class="@container">
   <!-- Container query with a size of `lg` defined in your tailwind.config.js file -->
   <div class="@lg:underline"></div>
-  <div class="@[(min-width:_1024px)]:underline"></div>
   <div class="@[1024px]:underline"></div>
 </div>
 
 <!-- Container queries that apply for a defined container name -->
-<div class="container/sidebar">
+<div class="@container/sidebar">
   <div class="@lg/sidebar:underline"></div>
-  <div class="@[(min-width:_1024px)]/sidebar:underline"></div>
   <div class="@[1024px]/sidebar:underline"></div>
 </div>
 ```
 
-Named containers look like this:
+### Container types
 
-```css
-/* `container/sidebar` results in: */
-.container\/sidebar {
-  container-type: inline;
-  container-name: sidebar;
-}
-
-/* `container-inline/sidebar` results in: */
-.container-inline\/sidebar {
-  container-type: inline;
-  container-name: sidebar;
-}
-
-/* `container-block/sidebar` results in: */
-.container-block\/sidebar {
-  container-type: block;
-  container-name: sidebar;
-}
-
-/* `container-[size]/sidebar` results in: */
-.container-\[size\]\/sidebar {
-  container-type: size;
-  container-name: sidebar;
-}
-```
+| Class                       | css                                                     |
+| --------------------------- | ------------------------------------------------------- |
+| `@container`                | `container-type: inline-size;`                          |
+| `@container/sidebar`        | `container-type: inline-size; container-name: sidebar;` |
+| `@container-normal`         | `container-type: normal;`                               |
+| `@container-normal/sidebar` | `container-type: inline-size; container-name: sidebar;` |
 
 ## Configuration
+
+By default we ship with the following configured values:
+
+| Name  | Value   |
+| ----- | ------- |
+| `xs`  | `20rem` |
+| `sm`  | `24rem` |
+| `md`  | `28rem` |
+| `lg`  | `32rem` |
+| `xl`  | `36rem` |
+| `2xl` | `42rem` |
+| `3xl` | `48rem` |
+| `4xl` | `56rem` |
+| `5xl` | `64rem` |
+| `6xl` | `72rem` |
+| `7xl` | `80rem` |
 
 You can configure which values are available for this plugin under the `containers` key in your `tailwind.config.js` file:
 
@@ -82,14 +77,14 @@ module.exports = {
   theme: {
     extend: {
       containers: {
-        xs: '(min-width: 20rem)',
-        sm: '(min-width: 24rem)',
-        md: '(min-width: 28rem)',
-        lg: '(min-width: 32rem)',
-        xl: '(min-width: 36rem)',
+        xs: '20rem',
+        sm: '24rem',
+        md: '28rem',
+        lg: '32rem',
+        xl: '36rem',
         // etc...
-      }
-    }
+      },
+    },
   },
 }
 ```
