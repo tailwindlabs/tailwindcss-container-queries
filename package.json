@@ -15,6 +15,7 @@
     "dev": "npm run swcify -- --watch",
     "postbuild": "tsc --emitDeclarationOnly",
     "prepublishOnly": "npm run build",
+    "release-channel": "node ./scripts/release-channel.js",
     "release-notes": "node ./scripts/release-notes.js"
   },
   "prettier": {
