@@ -41,7 +41,7 @@ By default we provide [container sizes](#configuration) from `@xs` (`20rem`) to 
 
 ### Named containers
 
-You can optionally name containers using a `@container/{name}` class, and then include that name in the container variants using classes like `@lg/main:underline`:
+You can optionally name containers using a `@container/{name}` class, and then include that name in the container variants using classes like `@lg/{name}:underline`:
 
 ```html
 <div class="@container/main">
