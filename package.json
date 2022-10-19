@@ -14,7 +14,8 @@
     "build": "npm run swcify",
     "dev": "npm run swcify -- --watch",
     "postbuild": "tsc --emitDeclarationOnly",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "release-notes": "node ./scripts/release-notes.js"
   },
   "prettier": {
     "printWidth": 100,
