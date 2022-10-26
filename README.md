@@ -64,6 +64,18 @@ In addition to using one of the [container sizes](#configuration) provided by de
 </div>
 ```
 
+## Usage with tailwind's prefix option enabled
+
+When your project has a `prefix` option set inside of the tailwind.config.js file, you need to add your prefix to the `@container` class like `tw-@container` if your prefix is `tw-`:
+
+```html
+<div class="tw-@container">
+  <div class="@lg:tw-underline">
+    <!-- This text will be underlined when the "main" container is larger than `32rem` -->
+  </div>
+</div>
+```
+
 ### Removing a container
 
 To stop an element from acting as a container, use the `@container-normal` class.
