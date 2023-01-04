@@ -98,7 +98,7 @@ module.exports = {
   theme: {
     extend: {
       containers: {
-        `2xs`: '16rem',
+        '2xs': '16rem',
       },
     },
   },
