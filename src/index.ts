@@ -11,6 +11,45 @@ export = plugin(
       return parseFloat(value)
     }
 
+    const cbFor =
+      (selector: string) =>
+      (value = '', extra: { modifier: string | null }) => {
+        const parsed = parseValue(value)
+
+        return parsed !== null ? `@container ${extra.modifier ?? ''} (${selector}: ${value})` : []
+      }
+
+    const options = {
+      values,
+      sort(
+        aVariant: { value: string; modifier: string | null },
+        zVariant: { value: string; modifier: string | null }
+      ) {
+        const a = parseFloat(aVariant.value)
+        const z = parseFloat(zVariant.value)
+
+        if (a === null || z === null) return 0
+
+        // Sort values themselves regardless of unit
+        if (a - z !== 0) return a - z
+
+        const aLabel = aVariant.modifier ?? ''
+        const zLabel = zVariant.modifier ?? ''
+
+        // Explicitly move empty labels to the end
+        if (aLabel === '' && zLabel !== '') {
+          return 1
+        } else if (aLabel !== '' && zLabel === '') {
+          return -1
+        }
+
+        // Sort labels alphabetically in the English locale
+        // We are intentionally overriding the locale because we do not want the sort to
+        // be affected by the machine's locale (be it a developer or CI environment)
+        return aLabel.localeCompare(zLabel, 'en', { numeric: true })
+      },
+    }
+
     matchUtilities(
       {
         '@container': (value, { modifier }) => {
@@ -29,41 +68,9 @@ export = plugin(
       }
     )
 
-    matchVariant(
-      '@',
-      (value = '', { modifier }) => {
-        let parsed = parseValue(value)
-
-        return parsed !== null ? `@container ${modifier ?? ''} (min-width: ${value})` : []
-      },
-      {
-        values,
-        sort(aVariant, zVariant) {
-          let a = parseFloat(aVariant.value)
-          let z = parseFloat(zVariant.value)
-
-          if (a === null || z === null) return 0
-
-          // Sort values themselves regardless of unit
-          if (a - z !== 0) return a - z
-
-          let aLabel = aVariant.modifier ?? ''
-          let zLabel = zVariant.modifier ?? ''
-
-          // Explicitly move empty labels to the end
-          if (aLabel === '' && zLabel !== '') {
-            return 1
-          } else if (aLabel !== '' && zLabel === '') {
-            return -1
-          }
-
-          // Sort labels alphabetically in the English locale
-          // We are intentionally overriding the locale because we do not want the sort to
-          // be affected by the machine's locale (be it a developer or CI environment)
-          return aLabel.localeCompare(zLabel, 'en', { numeric: true })
-        },
-      }
-    )
+    matchVariant<string>('@', cbFor('min-width'), options)
+    matchVariant<string>('@w', cbFor('min-width'), options)
+    matchVariant<string>('@h', cbFor('min-height'), options)
   },
   {
     theme: {
