@@ -70,8 +70,8 @@ export = plugin(
     )
 
     matchVariant<string>('@', cbFor('min-width'), options)
-    matchVariant<string>('@w', cbFor('min-width'), options)
-    matchVariant<string>('@h', cbFor('min-height'), options)
+    matchVariant<string>('container-min-w', cbFor('min-width'), options)
+    matchVariant<string>('container-min-h', cbFor('min-height'), options)
   },
   {
     theme: {
