@@ -22,30 +22,29 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Use cached node_modules
-        id: cache
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: nodeModules-${{ hashFiles('**/package.json') }}-${{ matrix.node-version }}
-          restore-keys: |
-            nodeModules-
+          key: nodeModules-${{ hashFiles('**/package-lock.json') }}-${{ matrix.node-version }}
 
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
-        env:
-          CI: true
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
 
       - name: Resolve version
         id: vars
-        run: | 
+        run: |
           echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: "Version based on commit: 0.0.0-insiders.${{ env.SHA_SHORT }}"
+      - name: 'Version based on commit: 0.0.0-insiders.${{ env.SHA_SHORT }}'
         run: npm version 0.0.0-insiders.${{ env.SHA_SHORT }} --force --no-git-tag-version
 
       - name: Publish
         run: npm publish --tag insiders
         env:
-          CI: true
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
