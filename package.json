@@ -36,7 +36,7 @@
     }
   },
   "files": [
-    "./dist/*"
+    "dist"
   ],
   "peerDependencies": {
     "tailwindcss": ">=3.2.0"
