@@ -76,19 +76,19 @@ To stop an element from acting as a container, use the `@container-normal` class
 
 By default we ship with the following configured values:
 
-| Name   | CSS                             |
-| ------ | ------------------------------- |
-| `@xs`  | `@container (min-width: 20rem)` |
-| `@sm`  | `@container (min-width: 24rem)` |
-| `@md`  | `@container (min-width: 28rem)` |
-| `@lg`  | `@container (min-width: 32rem)` |
-| `@xl`  | `@container (min-width: 36rem)` |
-| `@2xl` | `@container (min-width: 42rem)` |
-| `@3xl` | `@container (min-width: 48rem)` |
-| `@4xl` | `@container (min-width: 56rem)` |
-| `@5xl` | `@container (min-width: 64rem)` |
-| `@6xl` | `@container (min-width: 72rem)` |
-| `@7xl` | `@container (min-width: 80rem)` |
+| Name   | CSS                             | 1rem = 16px                        | 
+| ------ | ------------------------------- | ---------------------------------- |
+| `@xs`  | `@container (min-width: 20rem)` | 320px                              |
+| `@sm`  | `@container (min-width: 24rem)` | 384px                              |
+| `@md`  | `@container (min-width: 28rem)` | 448px                              |
+| `@lg`  | `@container (min-width: 32rem)` | 512px                              |
+| `@xl`  | `@container (min-width: 36rem)` | 576px                              |
+| `@2xl` | `@container (min-width: 42rem)` | 672px                              |
+| `@3xl` | `@container (min-width: 48rem)` | 768px                              |
+| `@4xl` | `@container (min-width: 56rem)` | 896px                              |
+| `@5xl` | `@container (min-width: 64rem)` | 1024px                             |
+| `@6xl` | `@container (min-width: 72rem)` | 1152px                             |
+| `@7xl` | `@container (min-width: 80rem)` | 1280px                             |
 
 You can configure which values are available for this plugin under the `containers` key in your `tailwind.config.js` file:
 
