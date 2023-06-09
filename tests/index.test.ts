@@ -7,7 +7,7 @@ it('container queries', () => {
       {
         raw: html`
           <div
-            class="@container @container-normal @container/sidebar @container-normal/sidebar @container-[size]/sidebar"
+            class="@container @container-normal @container-size @container/sidebar @container-normal/sidebar @container-[size]/sidebar"
           >
             <div class="@md:underline"></div>
             <div class="@md/container1:underline"></div>
@@ -39,6 +39,7 @@ it('container queries', () => {
         sm: '320px',
         md: '768px',
         lg: '1024px',
+        "xs-h": { raw: "(max-height: 600px)" },
       },
     },
     corePlugins: { preflight: false },
@@ -56,6 +57,10 @@ it('container queries', () => {
 
       .\@container-normal {
         container-type: normal;
+      }
+
+      .\@container-size {
+        container-type: size;
       }
 
       .\@container\/sidebar {
