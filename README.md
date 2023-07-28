@@ -72,6 +72,19 @@ To stop an element from acting as a container, use the `@container-normal` class
   <!-- ... -->
 </div>
 
+### With a prefix
+
+If you have configured Tailwind to use a prefix, you'll also need to prefix `@container`:
+
+```html
+<div class="tw-@container/main">
+  <!-- ... -->
+  <div class="@lg/main:underline">
+    <!-- This text will be underlined when the "main" container is larger than `32rem` -->
+  </div>
+</div>
+```
+
 ## Configuration
 
 By default we ship with the following configured values:
