@@ -4,7 +4,7 @@ export = plugin(
   function containerQueries({ matchUtilities, matchVariant, theme }) {
     let values: Record<string, string> = theme('containers') ?? {}
 
-    function parseValue(value: string) {
+    function parseNumberValue(value: string) {
       let numericValue = value.match(/^(\d+\.\d+|\d+|\.\d+)\D+/)?.[1] ?? null
       if (numericValue === null) return null
 
@@ -24,17 +24,29 @@ export = plugin(
         values: {
           DEFAULT: 'inline-size',
           normal: 'normal',
+          size: 'size'
         },
         modifiers: 'any',
       }
     )
-
     matchVariant(
       '@',
       (value = '', { modifier }) => {
-        let parsed = parseValue(value)
+        let parsedNumber = null;
+        let parsedObject = null;
 
-        return parsed !== null ? `@container ${modifier ?? ''} (min-width: ${value})` : []
+        if(typeof value === 'object') {
+          parsedObject = JSON.parse(JSON.stringify(value)) || null;
+        }else{
+          parsedNumber = parseNumberValue(value);
+        }
+
+
+        if(parsedObject !== null) {
+          return `@container ${modifier ?? ''} ${parsedObject.raw}`
+        }
+
+        return parsedNumber !== null ? `@container ${modifier ?? ''} (min-width: ${value})` : []
       },
       {
         values,
