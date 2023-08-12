@@ -70,13 +70,15 @@ export = plugin(
       }
     )
 
+    const maxVariantFn: (value: string, { modifier }: { modifier: string | null }) => string | string[] = (value = '', { modifier }) => {
+      let parsed = parseValue(value)
+
+      return parsed !== null ? `@container ${modifier ?? ''} (max-width: ${value})` : []
+    }
+
     matchVariant(
       '@max',
-      (value = '', { modifier }) => {
-        let parsed = parseValue(value)
-
-        return parsed !== null ? `@container ${modifier ?? ''} (max-width: ${value})` : []
-      },
+      maxVariantFn,
       {
         values,
         sort,
@@ -85,11 +87,7 @@ export = plugin(
 
     matchVariant(
       'atMax',
-      (value = '', { modifier }) => {
-        let parsed = parseValue(value)
-
-        return parsed !== null ? `@container ${modifier ?? ''} (max-width: ${value})` : []
-      },
+      maxVariantFn,
       {
         values,
         sort,
