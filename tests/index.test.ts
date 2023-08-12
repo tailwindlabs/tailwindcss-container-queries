@@ -1,6 +1,5 @@
 import { expect } from '@jest/globals'
-import { html, css, run } from './run'
-import _defaultExtractor from 'tailwindcss/lib/lib/defaultExtractor'
+import { css, html, run } from './run'
 
 it('container queries', () => {
   let config = {
