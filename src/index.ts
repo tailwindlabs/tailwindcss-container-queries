@@ -58,6 +58,19 @@ export = plugin(
     }
 
     matchVariant(
+      '@',
+      (value = '', { modifier }) => {
+        let parsed = parseValue(value)
+
+        return parsed !== null ? `@container ${modifier ?? ''} (min-width: ${value})` : []
+      },
+      {
+        values,
+        sort,
+      }
+    )
+
+    matchVariant(
       '@max',
       (value = '', { modifier }) => {
         let parsed = parseValue(value)
@@ -71,11 +84,11 @@ export = plugin(
     )
 
     matchVariant(
-      '@',
+      'atMax',
       (value = '', { modifier }) => {
         let parsed = parseValue(value)
 
-        return parsed !== null ? `@container ${modifier ?? ''} (min-width: ${value})` : []
+        return parsed !== null ? `@container ${modifier ?? ''} (max-width: ${value})` : []
       },
       {
         values,

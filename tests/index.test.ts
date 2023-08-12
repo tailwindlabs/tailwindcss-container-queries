@@ -489,3 +489,249 @@ it('should be possible to use default max-width container queries', () => {
     `)
   })
 })
+
+it('atMax max-width container queries', () => {
+  let config = {
+    content: [
+      {
+        raw: html`
+          <div
+            class="@container @container-normal @container/sidebar @container-normal/sidebar @container-[size]/sidebar"
+          >
+            <div class="atMax-md:underline"></div>
+            <div class="atMax-md/container1:underline"></div>
+            <div class="atMax-md/container2:underline"></div>
+            <div class="atMax-md/container10:underline"></div>
+
+            <div class="atMax-sm:underline"></div>
+            <div class="atMax-sm/container1:underline"></div>
+            <div class="atMax-sm/container2:underline"></div>
+            <div class="atMax-sm/container10:underline"></div>
+
+            <div class="atMax-lg:underline"></div>
+            <div class="atMax-lg/container1:underline"></div>
+            <div class="atMax-lg/container2:underline"></div>
+            <div class="atMax-lg/container10:underline"></div>
+            <div class="atMax-[1024px]:underline"></div>
+            <div class="atMax-[1024px]/container1:underline"></div>
+            <div class="atMax-[1024]/container1:underline"></div>
+
+            <div class="atMax-[312px]:underline"></div>
+            <div class="atMax-[200rem]:underline"></div>
+            <div class="atMax-[123px]:underline"></div>
+          </div>
+        `,
+      },
+    ],
+    theme: {
+      containers: {
+        sm: '320px',
+        md: '768px',
+        lg: '1024px',
+      },
+    },
+    corePlugins: { preflight: false },
+  }
+
+  let input = css`
+    @tailwind utilities;
+  `
+
+  return run(input, config).then((result) => {
+    expect(result.css).toMatchFormattedCss(css`
+      .\@container {
+        container-type: inline-size;
+      }
+
+      .\@container-normal {
+        container-type: normal;
+      }
+
+      .\@container\/sidebar {
+        container-type: inline-size;
+        container-name: sidebar;
+      }
+
+      .\@container-normal\/sidebar {
+        container-type: normal;
+        container-name: sidebar;
+      }
+
+      @container (max-width: 123px) {
+        .atMax-\[123px\]\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (max-width: 200rem) {
+        .atMax-\[200rem\]\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (max-width: 312px) {
+        .atMax-\[312px\]\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container container1 (max-width: 320px) {
+        .atMax-sm\/container1\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container container2 (max-width: 320px) {
+        .atMax-sm\/container2\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container container10 (max-width: 320px) {
+        .atMax-sm\/container10\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (max-width: 320px) {
+        .atMax-sm\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container container1 (max-width: 768px) {
+        .atMax-md\/container1\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container container2 (max-width: 768px) {
+        .atMax-md\/container2\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container container10 (max-width: 768px) {
+        .atMax-md\/container10\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (max-width: 768px) {
+        .atMax-md\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container container1 (max-width: 1024px) {
+        .atMax-lg\/container1\:underline {
+          text-decoration-line: underline;
+        }
+      
+        .atMax-\[1024px\]\/container1\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container container2 (max-width: 1024px) {
+        .atMax-lg\/container2\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container container10 (max-width: 1024px) {
+        .atMax-lg\/container10\:underline {
+          text-decoration-line: underline;
+        }
+    }
+
+      @container (max-width: 1024px) {
+        .atMax-lg\:underline {
+          text-decoration-line: underline;
+        }
+        .atMax-\[1024px\]\:underline {
+          text-decoration-line: underline;
+        }
+      }
+    `)
+  })
+})
+
+it('should be possible to use default atMax max-width container queries', () => {
+  let config = {
+    content: [
+      {
+        raw: html`
+          <div>
+            <div class="atMax-md:underline"></div>
+            <div class="atMax-lg:underline"></div>
+            <div class="atMax-sm:underline"></div>
+            <div class="atMax-xs:underline"></div>
+            <div class="atMax-7xl:underline"></div>
+            <div class="atMax-6xl:underline"></div>
+            <div class="atMax-3xl:underline"></div>
+            <div class="atMax-5xl:underline"></div>
+          </div>
+        `,
+      },
+    ],
+    theme: {},
+    corePlugins: { preflight: false },
+  }
+
+  let input = css`
+    @tailwind utilities;
+  `
+
+  return run(input, config).then((result) => {
+    expect(result.css).toMatchFormattedCss(css`
+      @container (max-width: 20rem) {
+        .atMax-xs\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (max-width: 24rem) {
+        .atMax-sm\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (max-width: 28rem) {
+        .atMax-md\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (max-width: 32rem) {
+        .atMax-lg\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (max-width: 48rem) {
+        .atMax-3xl\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (max-width: 64rem) {
+        .atMax-5xl\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (max-width: 72rem) {
+        .atMax-6xl\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (max-width: 80rem) {
+        .atMax-7xl\:underline {
+          text-decoration-line: underline;
+        }
+      }
+    `)
+  })
+})
