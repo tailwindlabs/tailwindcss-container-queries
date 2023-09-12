@@ -24,7 +24,20 @@ module.exports = {
   ],
 }
 ```
-
+or (Error: require is not defined)
+```js
+// tailwind.config.js
+import containerQueries from "@tailwindcss/container-queries";
+module.exports = {
+  theme: {
+    // ...
+  },
+  plugins: [
+    containerQueries
+    // ...
+  ],
+}
+```
 ## Usage
 
 Start by marking an element as a container using the `@container` class, and then applying styles based on the size of that container using the container variants like `@md:`, `@lg:`, and `@xl:`:
