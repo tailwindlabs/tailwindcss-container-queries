@@ -68,6 +68,11 @@ it('container queries', () => {
         container-name: sidebar;
       }
 
+      .\@container-\[size\]\/sidebar {
+        container-type: size;
+        container-name: sidebar;
+      }
+
       @container (min-width: 123px) {
         .\@\[123px\]\:underline {
           text-decoration-line: underline;
