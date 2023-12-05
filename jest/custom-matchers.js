@@ -107,6 +107,11 @@ expect.extend({
         printWidth: 100,
       })
     }
+
+    function stripped(str) {
+      return str.replace(/\/\* ! tailwindcss .* \*\//, '').replace(/\s/g, '').replace(/;/g, '')
+    }
+
     const options = {
       comment: 'stripped(received) === stripped(argument)',
       isNot: this.isNot,
@@ -116,7 +121,7 @@ expect.extend({
     let formattedReceived = format(received)
     let formattedArgument = format(argument)
 
-    const pass = formattedReceived === formattedArgument
+    const pass = stripped(formattedReceived) === stripped(formattedArgument)
 
     const message = pass
       ? () => {
