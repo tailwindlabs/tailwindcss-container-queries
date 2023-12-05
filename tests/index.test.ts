@@ -54,120 +54,113 @@ it('container queries', () => {
         container-type: inline-size;
       }
 
-      .\@container-normal {
-        container-type: normal;
-      }
-
-      .\@container\/sidebar {
-        container-type: inline-size;
-        container-name: sidebar;
-      }
-
-      .\@container-normal\/sidebar {
-        container-type: normal;
-        container-name: sidebar;
-      }
-
       .\@container-\[size\] {
         container-type: size;
       }
 
       .\@container-\[size\]\/sidebar {
-        container-type: size;
-        container-name: sidebar;
+        container: sidebar / size;
       }
 
-      @container (min-width: 123px) {
+      .\@container-normal {
+        container-type: normal;
+      }
+
+      .\@container-normal\/sidebar {
+        container: sidebar;
+      }
+
+      .\@container\/sidebar {
+        container: sidebar / inline-size;
+      }
+
+      @container (width >= 123px) {
         .\@\[123px\]\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 200rem) {
+      @container (width >= 200rem) {
         .\@\[200rem\]\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 312px) {
+      @container (width >= 312px) {
         .\@\[312px\]\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container container1 (min-width: 320px) {
+      @container container1 (width >= 320px) {
         .\@sm\/container1\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container container2 (min-width: 320px) {
+      @container container2 (width >= 320px) {
         .\@sm\/container2\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container container10 (min-width: 320px) {
+      @container container10 (width >= 320px) {
         .\@sm\/container10\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 320px) {
+      @container (width >= 320px) {
         .\@sm\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container container1 (min-width: 768px) {
+      @container container1 (width >= 768px) {
         .\@md\/container1\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container container2 (min-width: 768px) {
+      @container container2 (width >= 768px) {
         .\@md\/container2\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container container10 (min-width: 768px) {
+      @container container10 (width >= 768px) {
         .\@md\/container10\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 768px) {
+      @container (width >= 768px) {
         .\@md\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container container1 (min-width: 1024px) {
-        .\@lg\/container1\:underline {
-          text-decoration-line: underline;
-        }
+      @container container1 (width >= 1024px) {
+        .\@lg\/container1\:underline,
         .\@\[1024px\]\/container1\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container container2 (min-width: 1024px) {
+      @container container2 (width >= 1024px) {
         .\@lg\/container2\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container container10 (min-width: 1024px) {
+      @container container10 (width >= 1024px) {
         .\@lg\/container10\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 1024px) {
-        .\@lg\:underline {
-          text-decoration-line: underline;
-        }
+      @container (width >= 1024px) {
+        .\@lg\:underline,
         .\@\[1024px\]\:underline {
           text-decoration-line: underline;
         }
@@ -204,49 +197,49 @@ it('should be possible to use default container queries', () => {
 
   return run(input, config).then((result) => {
     expect(result.css).toMatchFormattedCss(css`
-      @container (min-width: 20rem) {
+      @container (width >= 20rem) {
         .\@xs\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 24rem) {
+      @container (width >= 24rem) {
         .\@sm\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 28rem) {
+      @container (width >= 28rem) {
         .\@md\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 32rem) {
+      @container (width >= 32rem) {
         .\@lg\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 48rem) {
+      @container (width >= 48rem) {
         .\@3xl\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 64rem) {
+      @container (width >= 64rem) {
         .\@5xl\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 72rem) {
+      @container (width >= 72rem) {
         .\@6xl\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 80rem) {
+      @container (width >= 80rem) {
         .\@7xl\:underline {
           text-decoration-line: underline;
         }
