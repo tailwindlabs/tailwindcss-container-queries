@@ -58,7 +58,7 @@ In addition to using one of the [container sizes](#configuration) provided by de
 
 ```html
 <div class="@container">
-  <div class="@[17.5rem]:underline"></div>
+  <div class="@[17.5rem]:underline">
     <!-- This text will be underlined when the container is larger than `17.5rem` -->
   </div>
 </div>
