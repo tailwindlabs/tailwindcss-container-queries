@@ -39,6 +39,26 @@ Start by marking an element as a container using the `@container` class, and the
 
 By default we provide [container sizes](#configuration) from `@xs` (`20rem`) to `@7xl` (`80rem`).
 
+In case of `max-width` container queries:
+
+```html
+<div class="@container">
+  <div class="@max-lg:underline">
+    <!-- This text will be underlined when the container is larger than `32rem` -->
+  </div>
+</div>
+```
+
+or alternatively there is an `atMax` version:
+
+```html
+<div class="@container">
+  <div class="atMax-lg:underline">
+    <!-- This text will be underlined when the container is larger than `32rem` -->
+  </div>
+</div>
+```
+
 ### Named containers
 
 You can optionally name containers using a `@container/{name}` class, and then include that name in the container variants using classes like `@lg/{name}:underline`:
@@ -48,6 +68,26 @@ You can optionally name containers using a `@container/{name}` class, and then i
   <!-- ... -->
   <div class="@lg/main:underline">
     <!-- This text will be underlined when the "main" container is larger than `32rem` -->
+  </div>
+</div>
+```
+
+In case of `max-width` container queries:
+
+```html
+<div class="@container/main">
+  <div class="@max-lg/main:underline">
+    <!-- This text will be underlined when the container is larger than `32rem` -->
+  </div>
+</div>
+```
+
+or alternatively the `atMax` version:
+
+```html
+<div class="@container/main">
+  <div class="atMax-lg/main:underline">
+    <!-- This text will be underlined when the container is larger than `32rem` -->
   </div>
 </div>
 ```
@@ -63,6 +103,56 @@ In addition to using one of the [container sizes](#configuration) provided by de
   </div>
 </div>
 ```
+
+In case of `max-width` container queries:
+
+```html
+<div class="@container">
+  <div class="@max-[17.5rem]:underline">
+    <!-- This text will be underlined when the container is larger than `32rem` -->
+  </div>
+</div>
+```
+
+or alternatively the `atMax` version:
+
+```html
+<div class="@container">
+  <div class="atMax-[17.5rem]:underline">
+    <!-- This text will be underlined when the container is larger than `32rem` -->
+  </div>
+</div>
+```
+
+### Combining named containers and arbitrary container sizes
+
+You can combine both [named containers](#named-containers) and
+[arbitrary container sizes](#arbitrary-container-sizes) this way:
+
+```html
+<div class="@container/main">
+  <div class="@[17.5rem]/main:underline"></div>
+    <!-- This text will be underlined when the container is larger than `17.5rem` -->
+  </div>
+</div>
+```
+
+In case of `max-width` container queries only the `atMax` version is working
+because to support extraction of `@max-[17.5rem]/main:underline` by the default
+extractor of Tailwind CSS its regular expressions would need to be updated
+(or a custom extractor could be used but that is really an advanced topic since it
+overrides the default one which does really an excellent job to extract class name
+candidates from anywhere).
+
+```html
+<div class="@container/main">
+  <div class="atMax-[17.5rem]/main:underline">
+    <!-- This text will be underlined when the container is larger than `32rem` -->
+  </div>
+</div>
+```
+
+
 
 ### Removing a container
 
