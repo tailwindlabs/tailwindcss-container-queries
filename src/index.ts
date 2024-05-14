@@ -7,38 +7,38 @@ type VariantSortProps = {
 
 export = plugin(
   function containerQueries({ matchUtilities, matchVariant, theme }) {
-    const values: Record<string, string> = theme('containers') ?? {};
+    let values: Record<string, string> = theme('containers') ?? {}
 
     function parseValue(value: string) {
-      const numericValue = value.match(/^(\d+\.\d+|\d+|\.\d+)\D+/)?.[1] ?? null;
-      if (numericValue === null) return null;
+      let numericValue = value.match(/^(\d+\.\d+|\d+|\.\d+)\D+/)?.[1] ?? null
+      if (numericValue === null) return null
 
-      return parseFloat(value);
+      return parseFloat(value)
     }
 
     function sort(aVariant: VariantSortProps, zVariant: VariantSortProps) {
-      const a = parseFloat(aVariant.value);
-      const z = parseFloat(zVariant.value);
+      const a = parseFloat(aVariant.value)
+      const z = parseFloat(zVariant.value)
 
-      if (a === null || z === null) return 0;
+      if (a === null || z === null) return 0
 
       // Sort values themselves regardless of unit
-      if (a - z !== 0) return a - z;
+      if (a - z !== 0) return a - z
 
-      const aLabel = aVariant.modifier ?? '';
-      const zLabel = zVariant.modifier ?? '';
+      const aLabel = aVariant.modifier ?? ''
+      const zLabel = zVariant.modifier ?? ''
 
       // Explicitly move empty labels to the end
       if (aLabel === '' && zLabel !== '') {
         return 1;
       } else if (aLabel !== '' && zLabel === '') {
-        return -1;
+        return -1
       }
 
       // Sort labels alphabetically in the English locale
       // We are intentionally overriding the locale because we do not want the sort to
       // be affected by the machine's locale (be it a developer or CI environment)
-      return aLabel.localeCompare(zLabel, 'en', { numeric: true });
+      return aLabel.localeCompare(zLabel, 'en', { numeric: true })
     }
 
     matchUtilities(
@@ -47,7 +47,7 @@ export = plugin(
           return {
             'container-type': value,
             'container-name': modifier,
-          };
+          }
         },
       },
       {
@@ -57,33 +57,33 @@ export = plugin(
         },
         modifiers: 'any',
       }
-    );
+    )
 
     matchVariant(
       '@',
       (value = '', { modifier }) => {
-        const parsed = parseValue(value);
+        let parsed = parseValue(value)
 
-        return parsed !== null ? `@container ${modifier ?? ''} (min-width: ${value})` : [];
+        return parsed !== null ? `@container ${modifier ?? ''} (min-width: ${value})` : []
       },
       {
         values,
         sort,
       }
-    );
+    )
 
     matchVariant(
       '@max',
       (value = '', { modifier }) => {
-        const parsed = parseValue(value);
+        let parsed = parseValue(value)
 
-        return parsed !== null ? `@container ${modifier ?? ''} (width < ${value})` : [];
+        return parsed !== null ? `@container ${modifier ?? ''} (width < ${value})` : []
       },
       {
         values,
         sort,
       }
-    );
+    )
   },
   {
     theme: {
