@@ -41,6 +41,11 @@
   "peerDependencies": {
     "tailwindcss": ">=3.2.0"
   },
+  "peerDependenciesMeta": {
+    "tailwindcss": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@swc/cli": "^0.1.57",
     "@swc/core": "^1.3.7",
