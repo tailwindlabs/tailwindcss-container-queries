@@ -7,7 +7,7 @@ A plugin for Tailwind CSS v3.2+ that provides utilities for container queries.
 Install the plugin from npm:
 
 ```sh
-npm install @tailwindcss/container-queries
+npm install -D @tailwindcss/container-queries
 ```
 
 Then add the plugin to your `tailwind.config.js` file:
