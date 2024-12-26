@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Nothing yet!
+### Added
+
+- Support of `max-width` container queries using `@max` or `atMax` variants.
 
 ## [0.1.1] - 2023-03-31
 
