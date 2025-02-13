@@ -6,24 +6,19 @@ A plugin for Tailwind CSS v3.2+ that provides utilities for container queries.
 
 Install the plugin from npm:
 
-```sh
-npm install -D @tailwindcss/container-queries
+Install the plugin from npm:
+
+```shell
+npm install -D @tailwindcss/typography
 ```
 
-Then add the plugin to your `tailwind.config.js` file:
+Then add the plugin to your main `style.css` file:
 
-```js
-// tailwind.config.js
-module.exports = {
-  theme: {
-    // ...
-  },
-  plugins: [
-    require('@tailwindcss/container-queries'),
-    // ...
-  ],
-}
+```diff
+  @import "tailwindcss";
++ @plugin "@tailwindcss/typography";
 ```
+
 
 ## Usage
 
