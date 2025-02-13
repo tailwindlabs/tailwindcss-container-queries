@@ -1,3 +1,6 @@
+> [!NOTE]
+> Tailwind CSS v4.0+ supports container queries out of the box, so this plugin is only necessary in earlier versions of the framework.
+
 # @tailwindcss/container-queries
 
 A plugin for Tailwind CSS v3.2+ that provides utilities for container queries.
