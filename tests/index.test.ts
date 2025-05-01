@@ -74,95 +74,275 @@ it('container queries', () => {
         container: sidebar / inline-size;
       }
 
-      @container (width >= 123px) {
-        .\@\[123px\]\:underline {
-          text-decoration-line: underline;
+      @supports (container-type: inline-size) {
+        @container (width >= 123px) {
+          .\@\[123px\]\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container (width >= 200rem) {
-        .\@\[200rem\]\:underline {
-          text-decoration-line: underline;
+      @supports not (container-type: inline-size) {
+        @media (min-width: 123px) {
+          .\@\[123px\]\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container (width >= 312px) {
-        .\@\[312px\]\:underline {
-          text-decoration-line: underline;
+      @supports (container-type: inline-size) {
+        @container (width >= 200rem) {
+          .\@\[200rem\]\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container container1 (width >= 320px) {
-        .\@sm\/container1\:underline {
-          text-decoration-line: underline;
+      @supports not (container-type: inline-size) {
+        @media (min-width: 200rem) {
+          .\@\[200rem\]\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container container2 (width >= 320px) {
-        .\@sm\/container2\:underline {
-          text-decoration-line: underline;
+      @supports (container-type: inline-size) {
+        @container (width >= 312px) {
+          .\@\[312px\]\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container container10 (width >= 320px) {
-        .\@sm\/container10\:underline {
-          text-decoration-line: underline;
+      @supports not (container-type: inline-size) {
+        @media (min-width: 312px) {
+          .\@\[312px\]\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container (width >= 320px) {
-        .\@sm\:underline {
-          text-decoration-line: underline;
+      @supports (container-type: inline-size) {
+        @container container1 (width >= 320px) {
+          .\@sm\/container1\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container container1 (width >= 768px) {
-        .\@md\/container1\:underline {
-          text-decoration-line: underline;
+      @supports not (container-type: inline-size) {
+        @media (min-width: 320px) {
+          .\@sm\/container1\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container container2 (width >= 768px) {
-        .\@md\/container2\:underline {
-          text-decoration-line: underline;
+      @supports (container-type: inline-size) {
+        @container container2 (width >= 320px) {
+          .\@sm\/container2\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container container10 (width >= 768px) {
-        .\@md\/container10\:underline {
-          text-decoration-line: underline;
+      @supports not (container-type: inline-size) {
+        @media (min-width: 320px) {
+          .\@sm\/container2\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container (width >= 768px) {
-        .\@md\:underline {
-          text-decoration-line: underline;
+      @supports (container-type: inline-size) {
+        @container container10 (width >= 320px) {
+          .\@sm\/container10\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container container1 (width >= 1024px) {
-        .\@lg\/container1\:underline,
-        .\@\[1024px\]\/container1\:underline {
-          text-decoration-line: underline;
+      @supports not (container-type: inline-size) {
+        @media (min-width: 320px) {
+          .\@sm\/container10\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container container2 (width >= 1024px) {
-        .\@lg\/container2\:underline {
-          text-decoration-line: underline;
+      @supports (container-type: inline-size) {
+        @container (width >= 320px) {
+          .\@sm\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container container10 (width >= 1024px) {
-        .\@lg\/container10\:underline {
-          text-decoration-line: underline;
+      @supports not (container-type: inline-size) {
+        @media (min-width: 320px) {
+          .\@sm\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container (width >= 1024px) {
-        .\@lg\:underline,
-        .\@\[1024px\]\:underline {
-          text-decoration-line: underline;
+      @supports (container-type: inline-size) {
+        @container container1 (width >= 768px) {
+          .\@md\/container1\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports not (container-type: inline-size) {
+        @media (min-width: 768px) {
+          .\@md\/container1\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports (container-type: inline-size) {
+        @container container2 (width >= 768px) {
+          .\@md\/container2\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports not (container-type: inline-size) {
+        @media (min-width: 768px) {
+          .\@md\/container2\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports (container-type: inline-size) {
+        @container container10 (width >= 768px) {
+          .\@md\/container10\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports not (container-type: inline-size) {
+        @media (min-width: 768px) {
+          .\@md\/container10\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports (container-type: inline-size) {
+        @container (width >= 768px) {
+          .\@md\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports not (container-type: inline-size) {
+        @media (min-width: 768px) {
+          .\@md\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports (container-type: inline-size) {
+        @container container1 (width >= 1024px) {
+          .\@lg\/container1\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports not (container-type: inline-size) {
+        @media (min-width: 1024px) {
+          .\@lg\/container1\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports (container-type: inline-size) {
+        @container container1 (width >= 1024px) {
+          .\@\[1024px\]\/container1\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports not (container-type: inline-size) {
+        @media (min-width: 1024px) {
+          .\@\[1024px\]\/container1\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports (container-type: inline-size) {
+        @container container2 (width >= 1024px) {
+          .\@lg\/container2\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports not (container-type: inline-size) {
+        @media (min-width: 1024px) {
+          .\@lg\/container2\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports (container-type: inline-size) {
+        @container container10 (width >= 1024px) {
+          .\@lg\/container10\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports not (container-type: inline-size) {
+        @media (min-width: 1024px) {
+          .\@lg\/container10\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports (container-type: inline-size) {
+        @container (width >= 1024px) {
+          .\@lg\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports not (container-type: inline-size) {
+        @media (min-width: 1024px) {
+          .\@lg\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports (container-type: inline-size) {
+        @container (width >= 1024px) {
+          .\@\[1024px\]\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports not (container-type: inline-size) {
+        @media (min-width: 1024px) {
+          .\@\[1024px\]\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
     `)
@@ -197,51 +377,131 @@ it('should be possible to use default container queries', () => {
 
   return run(input, config).then((result) => {
     expect(result.css).toMatchFormattedCss(css`
-      @container (width >= 20rem) {
-        .\@xs\:underline {
-          text-decoration-line: underline;
+      @supports (container-type: inline-size) {
+        @container (width >= 20rem) {
+          .\@xs\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container (width >= 24rem) {
-        .\@sm\:underline {
-          text-decoration-line: underline;
+      @supports not (container-type: inline-size) {
+        @media (min-width: 20rem) {
+          .\@xs\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container (width >= 28rem) {
-        .\@md\:underline {
-          text-decoration-line: underline;
+      @supports (container-type: inline-size) {
+        @container (width >= 24rem) {
+          .\@sm\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container (width >= 32rem) {
-        .\@lg\:underline {
-          text-decoration-line: underline;
+      @supports not (container-type: inline-size) {
+        @media (min-width: 24rem) {
+          .\@sm\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container (width >= 48rem) {
-        .\@3xl\:underline {
-          text-decoration-line: underline;
+      @supports (container-type: inline-size) {
+        @container (width >= 28rem) {
+          .\@md\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container (width >= 64rem) {
-        .\@5xl\:underline {
-          text-decoration-line: underline;
+      @supports not (container-type: inline-size) {
+        @media (min-width: 28rem) {
+          .\@md\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container (width >= 72rem) {
-        .\@6xl\:underline {
-          text-decoration-line: underline;
+      @supports (container-type: inline-size) {
+        @container (width >= 32rem) {
+          .\@lg\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
-      @container (width >= 80rem) {
-        .\@7xl\:underline {
-          text-decoration-line: underline;
+      @supports not (container-type: inline-size) {
+        @media (min-width: 32rem) {
+          .\@lg\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports (container-type: inline-size) {
+        @container (width >= 48rem) {
+          .\@3xl\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports not (container-type: inline-size) {
+        @media (min-width: 48rem) {
+          .\@3xl\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports (container-type: inline-size) {
+        @container (width >= 64rem) {
+          .\@5xl\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports not (container-type: inline-size) {
+        @media (min-width: 64rem) {
+          .\@5xl\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports (container-type: inline-size) {
+        @container (width >= 72rem) {
+          .\@6xl\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports not (container-type: inline-size) {
+        @media (min-width: 72rem) {
+          .\@6xl\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports (container-type: inline-size) {
+        @container (width >= 80rem) {
+          .\@7xl\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @supports not (container-type: inline-size) {
+        @media (min-width: 80rem) {
+          .\@7xl\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
     `)
