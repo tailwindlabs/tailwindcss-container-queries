@@ -32,9 +32,18 @@ export = plugin(
     matchVariant(
       '@',
       (value = '', { modifier }) => {
-        let parsed = parseValue(value)
+        const parsed = parseValue(value);
 
-        return parsed !== null ? `@container ${modifier ?? ''} (min-width: ${value})` : []
+        if (parsed === null) return [];
+
+        return [
+          `@supports (container-type: inline-size) {
+            @container ${modifier ?? ''} (min-width: ${value})
+          }`,
+          `@supports not (container-type: inline-size) {
+            @media (min-width: ${value})
+          }`
+        ];
       },
       {
         values,
